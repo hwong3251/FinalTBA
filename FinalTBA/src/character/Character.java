@@ -2,12 +2,9 @@ package character;
 
 import java.util.Scanner;
 
-import room.Room;
 
 public abstract class Character {
-	public static String name, line, description;
-	private int HP, AT, DF, EXP;
-	private Room room;
+	//public static String name, line, description;
 	private int x, y;
 	
 	/** 
@@ -20,13 +17,4 @@ public abstract class Character {
 	 * @param AT : Attack. Strength of fight option in combat(player) 
 	 * @param x y : position of player
 	 */
-	public Character(String name, String line, String description,int HP, int AT)
-	{
-		this.name = name;
-		this.line = line;
-		this.description = description;
-		this.HP = HP;
-		this.AT = AT;
-
-	}
 }

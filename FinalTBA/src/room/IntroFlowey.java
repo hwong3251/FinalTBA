@@ -1,22 +1,22 @@
 package room;
+
 import character.Player;
 import runner.GameRunner;
 
-public class EmptyRoom extends Room{
-	
-	private boolean occupied = false;
+public class IntroFlowey extends Room{
+	private boolean occupied = true;
 	private Player occupants ;
 	
-	public EmptyRoom(Player occupants, boolean occupied) {
+	public IntroFlowey(Player occupants, boolean occupied) {
 		this.occupants = occupants;
 		this.occupied = occupied;
 	}
-
+	
 	public void print() 
 	{
 		if(occupied)
 		{
-			System.out.print("[x]");
+			System.out.print("[F]");
 		}
 		else
 		{
@@ -34,7 +34,5 @@ public class EmptyRoom extends Room{
 	@Override
 	public void removeOccupants() {
 		occupants = null;
-		occupied = false;
 	}
-
 }

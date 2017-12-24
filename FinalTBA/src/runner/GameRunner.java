@@ -1,49 +1,40 @@
 package runner;
+import java.io.IOException;
+
 import board.Board;
 import board.Fight;
-import board.Map1;
+import board.IntroMap;
 import character.Character;
-import character.Flowey;
 import character.Player;
 import room.Room;
 
 public class GameRunner {
 
 	public static boolean GameOn = true;
-	static Room[][]NewMap = new Room[8][2];
-	public static void main(String[]args) throws InterruptedException
+	public static Player player = new Player(0 , 0, null);
+	public static IntroMap test1= new IntroMap();
+	public static Fight test2= new Fight();
+	
+	public static Board currentMap = test1;
+	
+	public static void main(String[]args) throws InterruptedException, IOException
 	{
-		introduction();
-		Flowey flowey1 = new Flowey("FLOWEY", "", "",100, 33, 2, 2);
-		Player player1 = new Player(Player.name, "", "",100, 15, 0 , 0);
 		Boolean GameOn = true;
-		while(GameOn)
+		
+		if(currentMap == test1)
 		{
-			if(player1.x == flowey1.x && player1.y == flowey1.y)
-			{
-				Flowey.createPlayerName();
-				GameOn = false;
-			}
-			else
-			{
-				Map1.printMap(player1,3);
-				player1.chooseMove();
-			}
+			test1.introduction();
 		}
-		Fight.playerVSflowey();
+		
+		while(GameOn&&test1.FloweyPlayerEncounter()==false)
+		{
+				currentMap.updateMap();
+				currentMap.printMap();
+				player.chooseMove();
+		}
+		test2.printMap();
+		test2.playerVSflowey();
 	}
-	public static void introduction() throws InterruptedException
-	{
-		int sleepTime = 1000;
-		System.out.println("Long ago, two races ruled over Earth: HUMANS and MONSTERS");
-		Thread.sleep(sleepTime);
-		System.out.println("One day, war broke out between the two races.");
-		Thread.sleep(sleepTime);
-		System.out.println("After a long battle, the humans were victorious");
-		Thread.sleep(sleepTime);
-		System.out.println("They sealed the monsters underground with a magic spell");
-		Thread.sleep(sleepTime);
-		System.out.println("Many years later... \n ");
-	}
+
 	
 }

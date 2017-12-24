@@ -1,43 +1,41 @@
 package character;
 import java.util.Scanner;
 
-import board.Map1;
 import room.Room;
+import runner.GameRunner;
 import utilities.Utilities;
 
-public class Player extends Character implements CharacterInterface{
+public class Player extends Character{
 	
+	private static int x;
+	private static int y;
 	public static String name;
-	private String line, description;
-	private static int HP;
-	private int AT;
-	public int x;
-	public int y;
 	/**
 	 * @param x y: position of player.
 	 */
-	public Player(String name, String line, String description,int HP, int AT, int x , int y)
+	public Player(int x , int y, String name)
 	{
-		super(name, line, description,HP, AT);
-		this.x =x;
-		this.y = x;
+		this.x = x;
+		this.y = y;
+		this.name = name;
 	}
+	
 	//set limit to where player can go in the map. 
 	public void moveLimit()
 	{
-		if(y > Map1.boardSize-1)
+		if(y > GameRunner.currentMap.getyBoardSize()-1)
 		{
-			System.out.print("You cannot move this way.\n");
+			System.out.print("!! You cannot move this way. !!\n");
 			y -=1;	
 		}
         if(y < 0)
         {
-        	System.out.print("You cannot move this way.\n");
+        	System.out.print("!! You cannot move this way. !!\n");
       		y +=1;
         }
-        if(x> Map1.boardSize-1)
+        if(x > GameRunner.currentMap.getxBoardSize()-1)
         {
-        	System.out.print("You cannot move this way.\n"); 
+        	System.out.print("!! You cannot move this way. !!\n"); 
         	x -=1;
         }
         if(x < 0)
@@ -46,6 +44,7 @@ public class Player extends Character implements CharacterInterface{
       		x +=1;
         }  
 	}
+	
 	//player movement control
 	public void chooseMove()
 	{
@@ -54,19 +53,19 @@ public class Player extends Character implements CharacterInterface{
 		String response = in.nextLine();	
 		if (response.equals("w"))
 		{
-			this.y -= 1;
+			this.x -= 1;
 		}
 		else if (response.equals("s"))
 		{
-			this.y += 1;
+			this.x += 1;
 		}
 		else if (response.equals("d"))
 		{
-			this.x += 1;
+			this.y += 1;
 		}
 		else if (response.equals("a"))	
 		{
-			this.x -= 1 ;
+			this.y -= 1 ;
 		}
 		else
 		{
@@ -75,40 +74,23 @@ public class Player extends Character implements CharacterInterface{
 		moveLimit();
 	}
 	
-	public int getX()
-	{
-		return x;
-	}
-	public int getY()
-	{
-		return y;
-	}
+	//set Player name
 	public static void setPlayerName(String name) {
 		Player.name = name;
 	}
 	
-
-	private String[]dArr = {"tired","hungry","determined","lost"};
-	private String[]lArr = {"attack", "spare", "stay", "compliment", "flee","item","check","collect","follow","..."};
-	@Override
-	public String getStageLine() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	//getter, setter
-	public static int getHP() {
-		return HP;
-	}
-	public static void setHP(int hP) {
-		Player.HP = hP;
-	}
-	//death
-	public static void death()
+	//getter
+	public static int getX()
 	{
-		if(getHP() == 0)
-		{
-			System.out.println("You Died");
-		}
+		return x;
+	}
+	public static int getY()
+	{
+		return y;
+	}
+	public static String getName()
+	{
+		return name;
 	}
 	
 }
